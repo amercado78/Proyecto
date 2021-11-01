@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdminJMI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+</head>
+<body class="hold-transition login-page"> 
+	<div class="login-box">
+		<div class="card card-outline card-primary">
+			<div class="card-header text-center">
+				<a class="h1"><b>Admin</b>JMI</a>
+				<p class="login-box-msg" th:text="${@environment.getProperty('version.admin.JMI')}">V. 1.0.0</p>
+			</div>
+			
+			<div id="idFormLogin" class="card-body" >
+				<p class="login-box-msg">Inicia sesión con tu correo y contraseña</p>
+				<form th:action="@{/login}" method="post">
+					<div class="input-group mb-3">
+						<input name="username" type="text" class="form-control" placeholder="Correo electronico">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-envelope"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input name="password" type="password" class="form-control" placeholder="Contraseña">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-lock"></span>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>					
+				</form>
+				<br><br>
+
+				<p class="mb-1">
+					<a style="cursor: pointer;" onclick="showForgetPassword()">Olvide mi contraseña</a>
+				</p>
+			</div>
+			
+			
+
+			<div id="idFormForgetPassword" class="card-body login-card-body" style="display: none;">
+				<p class="login-box-msg">¿Olvidaste tu contraseña?<br>Aqui puedes reestablecerlos por correo electrónico</p>
+
+				<form action="recover-password.html" method="post">
+					<div class="input-group mb-3">
+						<input type="email" class="form-control" placeholder="Correo electrónico">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-envelope"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<button type="submit" class="btn btn-primary btn-block">Requerir nuevo password</button>
+						</div>
+					</div>
+				</form>
+				<p class="mt-3 mb-1">
+					<a style="cursor: pointer;" onclick="showLogin()">Iniciar sesión</a>
+				</p>					
+			</div>				
+
+						
+		</div>		
+	</div>
+
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>	
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>	
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+	<script type="text/javascript">
+		function showLogin(){
+			$("#idFormForgetPassword").hide();
+			$("#idFormLogin").fadeIn(700);
+		}
+		
+		function showForgetPassword(){
+			$("#idFormLogin").hide();		
+			$("#idFormForgetPassword").fadeIn(700);
+		}
+	</script>
+</body>
+</html>

@@ -1,11 +1,18 @@
 package com.mx.jmi.adminJMI.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,7 +34,10 @@ public class Usuarios {
 	@Column
 	private Integer estatus;	
 	@OneToOne
-    @JoinColumn(name = "fkrol", updatable = false, nullable = false)
+	//@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//@OneToMany(cascade = CascadeType.ALL)
+	//@ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fkrol", referencedColumnName = "pkRol", updatable = false, nullable = false)
 	private Roles rol;
 	
 	
