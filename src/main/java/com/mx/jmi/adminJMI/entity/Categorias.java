@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "categorias")
 public class Categorias {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer pkcategoria;
 	@Column
 	private String nombre;
@@ -86,4 +86,11 @@ public class Categorias {
 	public void setFa(Timestamp fa) {
 		this.fa = fa;
 	}
+	
+	public Categorias() {
+		
+	}
+	
+	
+	
 }

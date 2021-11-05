@@ -19,6 +19,12 @@ public class CategoriasServiceImpl implements CategoriasService{
 	public List<Categorias> findAll() {
 		return categoriasRepository.findAll(); 
 	}
+
+	@Override
+	public void save(Categorias categorias) {
+		categoriasRepository.save(categorias);
+		
+	}
 	
 	
 }

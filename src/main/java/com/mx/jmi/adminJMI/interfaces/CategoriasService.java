@@ -7,4 +7,5 @@ import com.mx.jmi.adminJMI.entity.Categorias;
 public interface CategoriasService {
 	
 	List <Categorias> findAll();
+	void save(Categorias categorias);
 }
