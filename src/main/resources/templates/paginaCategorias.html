@@ -32,7 +32,7 @@
 				<div class="container-fluid">
 					<div class="card card-default">
 						<div class="card-header">
-							<h3 class="card-title">Categorias</h3>
+							<h3 class="card-title"><p th:text="${seccion}"/></h3>
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool" data-card-widget="" style="color: #000" data-toggle="modal" data-target="#modal-xl">
 									<i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Crear nueva categoria
@@ -59,25 +59,42 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
+								<div class="d-inline-block">
+									<h3 class="card-title"><p th:text="'Categorías existentes: '+ ${categorias.size()} +''"/></h3>
+								</div>
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
-											<tr>
+											<!--<tr>
 												<th>Id</th>
 												<th>Nombre</th>
 												<th>Descripción</th>
 												<th>Categoria padre</th>												
 												<th>Estatus</th>
 												<th></th>
+											</tr>-->
+											<tr>
+												<th>Id</th>
+												<th>Nombre</th>
+												<th>Descripción</th>												
+												<th>Estatus</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<!--<tr>
 												<td>1</td>
 												<td>Sensores de temperatura</td>
 												<td>Sensores de temperatura</td>
 												<td>Sensores</td>
 												<td>Activa</td>
 												<td><i style="cursor: pointer;" class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1"></i></td>
+											</tr>-->
+											<tr th:each="categoria: ${categorias}">
+    											<td th:text="${categoria.getId()}" />
+    											<td th:text="${categoria.getNombre()}" />
+    											<td th:text="${categoria.getDescripcion()}" />
+    											<td th:text="${categoria.getEstatusDescripcion()}" />
+    											<td><i style="cursor: pointer;" class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1"></i></td>
 											</tr>											
 										</tbody>			
 									</table>
@@ -101,25 +118,45 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-md-12">
-								<div class="input-group mb-3">
+							
+								<form>
+								  <div class="form-group">
+								    <label for="exampleInputEmail1">Nombre:</label>
+								    <input type="text" class="form-control" id="nombreCategoria" placeholder="Ingrese nombre de categoría">
+								  </div>
+								  <div class="form-group">
+  									<label for="exampleFormControlTextarea4">Descripción:</label>
+  									<textarea class="form-control" id="descripcionCategoria" rows="3"></textarea>
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputPassword1">Password</label>
+								    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+								  </div>
+								  <div class="form-check">
+								    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+								    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+								  </div>
+								  <button type="submit" class="btn btn-primary">Submit</button>
+								</form>
+								<!--<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Nombre categoria:</span>
 									</div>
 									<input type="text" class="form-control" placeholder="">
-								</div>		
-								<div class="input-group mb-3">
+								</div>-->		
+								<!--<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text">Descripción de la categoria</span>
 									</div>
 									<textarea class="form-control" rows="3" placeholder="" style="resize: none;"></textarea>
-								</div>						
-								<div class="input-group mb-3">
+								</div>-->						
+								<!--<div class="input-group mb-3">
 									<select class="form-control select2" style="width: 100%;">
 										<option selected="selected">Sin categoria padre</option>
 										<option>Categoria padre: Sensores</option>
 									</select>
-								</div>								
-								<div class="form-group">
+								</div>-->								
+								<!--<div class="form-group">
 									<span class="mailbox-attachment-icon has-img"><img style="height: 100px;" th:src="@{/dist/img/sinImagen.jpg}" alt=""></span>
 					                <div class="mailbox-attachment-info">										
 				                        <span class="mailbox-attachment-size clearfix mt-1">
@@ -128,7 +165,7 @@
 				                          <label for="customFile" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-upload-alt"></i></label>
 				                        </span>
 					                </div>									
-								</div>
+								</div>-->
 							</div>
 									
 						</div>
