@@ -21,20 +21,6 @@ public class Usuarios {
 	private String contrasena;
 	@Column
 	private Integer estatus;	
-	//@OneToOne
-	//@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@ManyToMany(cascade = CascadeType.ALL)
-    //--@JoinColumn(name = "fkrol", referencedColumnName = "pkRol", updatable = false, nullable = false)
-	/*private Roles rol;
-	
-	
-	public Roles getRol() {
-		return rol;
-	}
-	public void setRol(Roles rol) {
-		this.rol = rol;
-	}*/
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
@@ -43,7 +29,16 @@ public class Usuarios {
             inverseJoinColumns = @JoinColumn(name = "roles_pkrol")
             )
 	private Set<Roles> roles = new HashSet<>();
-    	
+	
+	@Column
+	private String avatar;
+		
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 	public Set<Roles> getRoles() {
 		return roles;
 	}

@@ -14,6 +14,7 @@ public class CustomUserDetailsImpl implements UserDetails  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final String AVATAR_BY_DEFAULT = "/adminJMI/dist/img/generic_avatar.png";
 	private Usuarios usuarios;
 	
 	public CustomUserDetailsImpl(Usuarios usuarios) {
@@ -59,5 +60,14 @@ public class CustomUserDetailsImpl implements UserDetails  {
 	public boolean isEnabled() {
 		return usuarios.getEstatus() == 1 ? true : false;
 	}
+	
+	public String getFullName() {
+        return usuarios.getNombres() + " " + usuarios.getApellidos();
+    }
+	
+	public String getAvatar() {
+		String avatar = usuarios.getAvatar() != null && !usuarios.getAvatar().isEmpty() && !usuarios.getAvatar().isBlank() ? usuarios.getAvatar(): AVATAR_BY_DEFAULT;
+        return avatar;
+    }
 
 }

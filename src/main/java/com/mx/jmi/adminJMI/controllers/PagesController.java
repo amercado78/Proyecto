@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.mx.jmi.adminJMI.dtos.CategoriaDto;
+import com.mx.jmi.adminJMI.dtos.SubcategoriaDto;
 import com.mx.jmi.adminJMI.entity.Categorias;
 import com.mx.jmi.adminJMI.entity.Subcategorias;
 import com.mx.jmi.adminJMI.interfaces.CategoriasService;
 import com.mx.jmi.adminJMI.interfaces.SubcategoriasService;
 import com.mx.jmi.adminJMI.mappers.CategoriasMapper;
+import com.mx.jmi.adminJMI.mappers.SubcategoriasMapper;
 
 @Controller
 public class PagesController {
@@ -51,16 +53,31 @@ public class PagesController {
 	@GetMapping("/categories")
 	public String categories(Model model, HttpSession session) {		
 		logger.info("/categories");
-		listaCategorias = categoriasService.findAll();
-		listaSubcategorias = subcategoriasService.findAll();
-		logger.info("Numero de subcatgorias: " + listaSubcategorias.size());
-		
+		listaCategorias = categoriasService.findAll();	
 		List<CategoriaDto> categorias = CategoriasMapper.mapearListaCategoriasEntityACategoriaDto(listaCategorias);
 		model.addAttribute("seccion", "Categorias");
 		model.addAttribute("categorias", categorias);
 		model.addAttribute("categoria", new Categorias());
 		try {		
 			return "paginaCategorias";				
+		} catch (Exception e) {	
+			logger.info("/categories Exception-error:"+e.getMessage());
+			return "error";
+		}		
+		
+	}
+	
+	@GetMapping("/subcategories")
+	public String subcategories(Model model, HttpSession session) {
+		logger.info("/subcategories");
+		model.addAttribute("seccion", "Subcategorias");
+		listaSubcategorias = subcategoriasService.findAll();
+		List<SubcategoriaDto> subcategorias = SubcategoriasMapper.mapearListaSubcategoriasEntityASubcategoriaDto(listaSubcategorias);
+		model.addAttribute("seccion", "Subcategorias");
+		model.addAttribute("subcategorias", subcategorias);
+		model.addAttribute("subcategoria", new Subcategorias());
+		try {		
+			return "paginaSubcategorias";				
 		} catch (Exception e) {	
 			logger.info("/categories Exception-error:"+e.getMessage());
 			return "error";
