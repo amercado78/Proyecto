@@ -17,17 +17,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.mx.jmi.adminJMI.dtos.CategoriaDto;
 import com.mx.jmi.adminJMI.entity.Categorias;
+import com.mx.jmi.adminJMI.entity.Subcategorias;
 import com.mx.jmi.adminJMI.interfaces.CategoriasService;
+import com.mx.jmi.adminJMI.interfaces.SubcategoriasService;
 import com.mx.jmi.adminJMI.mappers.CategoriasMapper;
 
 @Controller
 public class PagesController {
 	
 	Logger logger = LoggerFactory.getLogger(PagesController.class);
-	List <Categorias> listaCategorias; 
+	List<Categorias> listaCategorias; 
+	List<Subcategorias> listaSubcategorias; 
 	
 	@Autowired
 	private CategoriasService categoriasService;
+	@Autowired
+	private SubcategoriasService subcategoriasService;
 	
 	@GetMapping({"/","/login"})
 	public String login(Model model, HttpSession session) {		
@@ -47,6 +52,9 @@ public class PagesController {
 	public String categories(Model model, HttpSession session) {		
 		logger.info("/categories");
 		listaCategorias = categoriasService.findAll();
+		listaSubcategorias = subcategoriasService.findAll();
+		logger.info("Numero de subcatgorias: " + listaSubcategorias.size());
+		
 		List<CategoriaDto> categorias = CategoriasMapper.mapearListaCategoriasEntityACategoriaDto(listaCategorias);
 		model.addAttribute("seccion", "Categorias");
 		model.addAttribute("categorias", categorias);

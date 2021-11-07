@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdminJMI</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/daterangepicker/daterangepicker.css}">
+<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/select2/css/select2.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/bs-stepper/css/bs-stepper.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/dropzone/min/dropzone.min.css}">
+<link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+</head>
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<div th:replace="cabecera :: copy"></div>
+		<div th:replace="menu :: copy"></div>
+		
+		<div class="content-wrapper">
+			<section class="content-header"></section>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="card card-default">
+						<div class="card-header">
+							<h3 class="card-title"><p th:text="${seccion}"/></h3>
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool" data-card-widget="" style="color: #000" data-toggle="modal" data-target="#modal-xl">
+									<i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Crear nueva subcategoria
+								</button>								
+							</div>
+							<div class="card-tools"></div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder="Buscar por nombre de categoria">
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="fas fa-search"></i></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+								<div class="d-inline-block">
+									<h3 class="card-title"><p th:text="'Subcategorías existentes: '+ '' +''"/></h3>
+								</div>
+									<table id="example2" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Nombre</th>
+												<th>Descripción</th>
+												<th>Categoria padre</th>												
+												<th>Estatus</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<!--<tr th:each="categoria: ${categorias}">
+    											<td th:text="${categoria.getId()}" />
+    											<td th:text="${categoria.getNombre()}" />
+    											<td th:text="${categoria.getDescripcion()}" />
+    											<td th:text="${categoria.getEstatusDescripcion()}" />
+    											<td><i style="cursor: pointer;" class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1"></i></td>
+											</tr>-->
+											<tr>
+												<td>1</td>
+												<td>Sensores de temperatura</td>
+												<td>Sensores de temperatura</td>
+												<td>Sensores</td>
+												<td>Activa</td>
+												<td><i style="cursor: pointer;" class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1"></i></td>
+											</tr>											
+										</tbody>			
+									</table>
+								</div>							
+							</div>					
+						</div>		
+					</div>
+				</div>			
+			</section>			
+		</div>		
+		
+		<div class="modal fade" id="modal-xl">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Crear nueva subcategoria</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form th:action="@{/guardarCategoria}" method="post">
+								 	<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text">Nombre subcategoria:</span>
+										</div>
+										<input type="text" class="form-control col-4" placeholder="Ingresar nombre de categoría" />
+									</div>		
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text">Descripción de la subcategoria</span>
+										</div>
+										<textarea class="form-control" rows="3" placeholder="" style="resize: none;"></textarea>
+									</div>
+									<div class="form-group">
+										<span class="mailbox-attachment-icon has-img"><img style="height: 100px;" th:src="@{/dist/img/sinImagen.jpg}" alt=""></span>
+						                <div class="mailbox-attachment-info">										
+					                        <span class="mailbox-attachment-size clearfix mt-1">
+					                          <span>0.0 MB</span>
+	   										  <input type="file" class="custom-file-input" id="customFile" style="display: none;">
+					                          <label for="customFile" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-upload-alt"></i></label>
+					                        </span>
+						                </div>									
+									</div>
+									<div class="modal-footer justify-content-between">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+										<input type="submit" class="btn btn-primary" value="Crear categoria">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>			
+		</div>
+		
+		<div class="modal fade" id="modal-xl1">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Actualizar categoria "Sensores de temperatura"</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Nombre categoria:</span>
+									</div>
+									<input type="text" class="form-control" placeholder="">
+								</div>								
+								<div class="input-group mb-3">
+									<select class="form-control select2" style="width: 100%;">
+										<option selected="selected">Sin categoria padre</option>
+										<option>Categoria padre: Sensores</option>
+									</select>
+								</div>								
+								<div class="form-group">
+									<span class="mailbox-attachment-icon has-img"><img style="height: 100px;" th:src="@{/dist/img/sinImagen.jpg}" alt=""></span>
+					                <div class="mailbox-attachment-info">										
+				                        <span class="mailbox-attachment-size clearfix mt-1">
+				                          <span>0.0 MB</span>
+   										  <input type="file" class="custom-file-input" id="customFile" style="display: none;">
+				                          <label for="customFile" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-upload-alt"></i></label>
+				                        </span>
+					                </div>									
+								</div>
+								<div class="input-group mb-3">
+									<select class="form-control select2" style="width: 100%;">
+										<option selected="selected">Categoria activa</option>
+										<option>Categoria inactiva</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Descripción de la categoria</span>
+									</div>
+									<textarea class="form-control" rows="10" placeholder="" style="resize: none;"></textarea>
+								</div>
+							</div>		
+						</div>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Actualizar categoria</button>
+					</div>
+				</div>				
+			</div>			
+		</div>
+
+		<div th:replace="piePagina :: copy"></div>
+
+		<aside class="control-sidebar control-sidebar-dark"></aside>		
+		
+	</div>
+
+	<script  th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<script  th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script  th:src="@{/plugins/ekko-lightbox/ekko-lightbox.min.js}"></script>
+	<script  th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+	<script  th:src="@{/plugins/jszip/jszip.min.js}"></script>
+	<script  th:src="@{/plugins/pdfmake/pdfmake.min.js}"></script>
+	<script  th:src="@{/plugins/pdfmake/vfs_fonts.js}"></script>
+	<script  th:src="@{/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script  th:src="@{/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+	<script  th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
+	<script  th:src="@{/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js}"></script>
+	<script  th:src="@{/plugins/moment/moment.min.js}"></script>
+	<script  th:src="@{/plugins/inputmask/jquery.inputmask.min.js}"></script>
+	<script  th:src="@{/plugins/daterangepicker/daterangepicker.js}"></script>
+	<script  th:src="@{/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js}"></script>
+	<script  th:src="@{/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+	<script  th:src="@{/plugins/bootstrap-switch/js/bootstrap-switch.min.js}"></script>
+	<script  th:src="@{/plugins/bs-stepper/js/bs-stepper.min.js}"></script>
+	<script  th:src="@{/plugins/dropzone/min/dropzone.min.js}"></script>
+	<script  th:src="@{/dist/js/adminlte.min.js}"></script>
+	<script  th:src="@{/plugins/filterizr/jquery.filterizr.min.js}"></script>
+	<script  th:src="@{/dist/js/demo.js}"></script>
+	<script>
+		$(function() {
+			//Initialize Select2 Elements
+			$('.select2').select2()
+
+			//Initialize Select2 Elements
+			$('.select2bs4').select2({
+				theme : 'bootstrap4'
+			})
+
+			//Datemask dd/mm/yyyy
+			$('#datemask').inputmask('dd/mm/yyyy', {
+				'placeholder' : 'dd/mm/yyyy'
+			})
+			//Datemask2 mm/dd/yyyy
+			$('#datemask2').inputmask('mm/dd/yyyy', {
+				'placeholder' : 'mm/dd/yyyy'
+			})
+			//Money Euro
+			$('[data-mask]').inputmask()
+
+			//Date picker
+			$('#reservationdate').datetimepicker({
+				format : 'L'
+			});
+
+			//Date and time picker
+			$('#reservationdatetime').datetimepicker({
+				icons : {
+					time : 'far fa-clock'
+				}
+			});
+
+			//Date range picker
+			$('#reservation').daterangepicker()
+			//Date range picker with time picker
+			$('#reservationtime').daterangepicker({
+				timePicker : true,
+				timePickerIncrement : 30,
+				locale : {
+					format : 'MM/DD/YYYY hh:mm A'
+				}
+			})
+			//Date range as a button
+			$('#daterange-btn').daterangepicker(
+					{
+						ranges : {
+							'Today' : [ moment(), moment() ],
+							'Yesterday' : [ moment().subtract(1, 'days'),
+									moment().subtract(1, 'days') ],
+							'Last 7 Days' : [ moment().subtract(6, 'days'),
+									moment() ],
+							'Last 30 Days' : [ moment().subtract(29, 'days'),
+									moment() ],
+							'This Month' : [ moment().startOf('month'),
+									moment().endOf('month') ],
+							'Last Month' : [
+									moment().subtract(1, 'month').startOf(
+											'month'),
+									moment().subtract(1, 'month')
+											.endOf('month') ]
+						},
+						startDate : moment().subtract(29, 'days'),
+						endDate : moment()
+					},
+					function(start, end) {
+						$('#reportrange span').html(
+								start.format('MMMM D, YYYY') + ' - '
+										+ end.format('MMMM D, YYYY'))
+					})
+
+			//Timepicker
+			$('#timepicker').datetimepicker({
+				format : 'LT'
+			})
+
+			//Bootstrap Duallistbox
+			$('.duallistbox').bootstrapDualListbox()
+
+			//Colorpicker
+			$('.my-colorpicker1').colorpicker()
+			//color picker with addon
+			$('.my-colorpicker2').colorpicker()
+
+			$('.my-colorpicker2').on(
+					'colorpickerChange',
+					function(event) {
+						$('.my-colorpicker2 .fa-square').css('color',
+								event.color.toString());
+					})
+
+			$("input[data-bootstrap-switch]").each(function() {
+				$(this).bootstrapSwitch('state', $(this).prop('checked'));
+			})
+
+		})
+		// BS-Stepper Init
+		document.addEventListener('DOMContentLoaded', function() {
+			window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+		})
+
+		// DropzoneJS Demo Code Start
+		Dropzone.autoDiscover = false
+
+		// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+		var previewNode = document.querySelector("#template")
+		previewNode.id = ""
+		var previewTemplate = previewNode.parentNode.innerHTML
+		previewNode.parentNode.removeChild(previewNode)
+
+		var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+			url : "/target-url", // Set the url
+			thumbnailWidth : 80,
+			thumbnailHeight : 80,
+			parallelUploads : 20,
+			previewTemplate : previewTemplate,
+			autoQueue : false, // Make sure the files aren't queued until manually added
+			previewsContainer : "#previews", // Define the container to display the previews
+			clickable : ".fileinput-button" // Define the element that should be used as click trigger to select files.
+		})
+
+		myDropzone.on("addedfile", function(file) {
+			// Hookup the start button
+			file.previewElement.querySelector(".start").onclick = function() {
+				myDropzone.enqueueFile(file)
+			}
+		})
+
+		// Update the total progress bar
+		myDropzone
+				.on(
+						"totaluploadprogress",
+						function(progress) {
+							document
+									.querySelector("#total-progress .progress-bar").style.width = progress
+									+ "%"
+						})
+
+		myDropzone.on("sending", function(file) {
+			// Show the total progress bar when upload starts
+			document.querySelector("#total-progress").style.opacity = "1"
+			// And disable the start button
+			file.previewElement.querySelector(".start").setAttribute(
+					"disabled", "disabled")
+		})
+
+		// Hide the total progress bar when nothing's uploading anymore
+		myDropzone.on("queuecomplete", function(progress) {
+			document.querySelector("#total-progress").style.opacity = "0"
+		})
+
+		// Setup the buttons for all transfers
+		// The "add files" button doesn't need to be setup because the config
+		// `clickable` has already been specified.
+		document.querySelector("#actions .start").onclick = function() {
+			myDropzone.enqueueFiles(myDropzone
+					.getFilesWithStatus(Dropzone.ADDED))
+		}
+		document.querySelector("#actions .cancel").onclick = function() {
+			myDropzone.removeAllFiles(true)
+		}
+		// DropzoneJS Demo Code End
+	</script>
+
+	<script>
+		$(function() {
+
+			$
+					.extend(
+							true,
+							$.fn.dataTable.defaults,
+							{
+								"language" : {
+									"decimal" : ",",
+									"thousands" : ".",
+									"info" : "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+									"infoEmpty" : "Mostrando registros del 0 al 0 de un total de 0 registros",
+									"infoPostFix" : "",
+									"infoFiltered" : "(filtrado de un total de _MAX_ registros)",
+									"loadingRecords" : "Cargando...",
+									"lengthMenu" : "Mostrar _MENU_ registros",
+									"paginate" : {
+										"first" : "Primero",
+										"last" : "Último",
+										"next" : "Siguiente",
+										"previous" : "Anterior"
+									},
+									"processing" : "Procesando...",
+									"search" : "Buscar:",
+									"searchPlaceholder" : "Término de búsqueda",
+									"zeroRecords" : "No se encontraron resultados",
+									"emptyTable" : "Ningún dato disponible en esta tabla",
+									"aria" : {
+										"sortAscending" : ": Activar para ordenar la columna de manera ascendente",
+										"sortDescending" : ": Activar para ordenar la columna de manera descendente"
+									},
+									//only works for built-in buttons, not for custom buttons
+									"buttons" : {
+										"create" : "Nuevo",
+										"edit" : "Cambiar",
+										"remove" : "Borrar",
+										"copy" : "Copiar",
+										"csv" : "fichero CSV",
+										"excel" : "tabla Excel",
+										"pdf" : "documento PDF",
+										"print" : "Imprimir",
+										"colvis" : "Visibilidad columnas",
+										"collection" : "Colección",
+										"upload" : "Seleccione fichero...."
+									},
+									"select" : {
+										"rows" : {
+											_ : '%d filas seleccionadas',
+											0 : 'clic fila para seleccionar',
+											1 : 'una fila seleccionada'
+										}
+									}
+								}
+							});
+
+			$("#example1").DataTable(
+					{
+						"responsive" : true,
+						"lengthChange" : false,
+						"autoWidth" : false,
+						"buttons" : [ "copy", "csv", "excel", "pdf", "print",
+								"colvis" ]
+					}).buttons().container().appendTo(
+					'#example1_wrapper .col-md-6:eq(0)');
+			$('#example2').DataTable({
+				"paging" : true,
+				"lengthChange" : false,
+				"searching" : false,
+				"ordering" : true,
+				"info" : true,
+				"autoWidth" : false,
+				"responsive" : true,
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			$(document).on('click', '[data-toggle="lightbox"]',
+					function(event) {
+						event.preventDefault();
+						$(this).ekkoLightbox({
+							alwaysShowClose : true
+						});
+					});
+
+			$('.filter-container').filterizr({
+				gutterPixels : 3
+			});
+			$('.btn[data-filter]').on('click', function() {
+				$('.btn[data-filter]').removeClass('active');
+				$(this).addClass('active');
+			});
+		})
+
+		function openImage() {
+
+			$('#imageProduct').click();
+
+		}
+	</script>
+
+</body>
+</html>

@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Table(name = "subcategorias")
 public class Subcategorias {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long pkSubCategoria;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer pksubcategoria;
 	@Column
 	private String nombre;
 	@Column
@@ -24,7 +24,7 @@ public class Subcategorias {
 	@Column
 	private String imagen;
 	@OneToOne
-    @JoinColumn(name = "fkcategoria", referencedColumnName = "pkCategoria", updatable = false, nullable = false)
+    @JoinColumn(name = "fkcategoria", referencedColumnName = "pkcategoria", updatable = false, nullable = false)
 	private Categorias categoria;
 	@Column
 	private Integer estatus;
@@ -36,11 +36,14 @@ public class Subcategorias {
 	private String ua;
 	@Column
 	private Timestamp fa;
-	public Long getPkSubCategoria() {
-		return pkSubCategoria;
+	
+	
+	
+	public Integer getPksubcategoria() {
+		return pksubcategoria;
 	}
-	public void setPkSubCategoria(Long pkSubCategoria) {
-		this.pkSubCategoria = pkSubCategoria;
+	public void setPksubcategoria(Integer pksubcategoria) {
+		this.pksubcategoria = pksubcategoria;
 	}
 	public String getNombre() {
 		return nombre;

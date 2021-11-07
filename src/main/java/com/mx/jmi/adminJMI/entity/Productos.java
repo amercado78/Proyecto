@@ -15,14 +15,14 @@ import javax.persistence.Table;
 @Table(name = "productos")
 public class Productos {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long pkProducto;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer pkproducto;
 	@Column
-	private Integer idAspelProducto;
+	private Integer idaspelproducto;
 	@Column
 	private String nombre;
 	@Column
-	private String descripion;
+	private String descripcion;
 	@Column
 	private String detalles;
 	@Column
@@ -36,11 +36,11 @@ public class Productos {
 	@Column
 	private Integer sugerido;
 	@Column
-	private Integer estatusProducto;
+	private Integer estatusproducto;
 	@Column
 	private Integer comprar;
 	@OneToOne
-    @JoinColumn(name = "fkSubcategoria", referencedColumnName = "pkSubCategoria", updatable = false, nullable = false)
+    @JoinColumn(name = "fksubcategoria", referencedColumnName = "pksubcategoria", updatable = false, nullable = false)
 	private Subcategorias subcategoria;
 	@Column
 	private Integer estatus;
@@ -52,18 +52,17 @@ public class Productos {
 	private String ua;
 	@Column
 	private Timestamp fa;
-	
-	public Long getPkProducto() {
-		return pkProducto;
+	public Integer getPkproducto() {
+		return pkproducto;
 	}
-	public void setPkProducto(Long pkProducto) {
-		this.pkProducto = pkProducto;
+	public void setPkproducto(Integer pkproducto) {
+		this.pkproducto = pkproducto;
 	}
-	public Integer getIdAspelProducto() {
-		return idAspelProducto;
+	public Integer getIdaspelproducto() {
+		return idaspelproducto;
 	}
-	public void setIdAspelProducto(Integer idAspelProducto) {
-		this.idAspelProducto = idAspelProducto;
+	public void setIdaspelproducto(Integer idaspelproducto) {
+		this.idaspelproducto = idaspelproducto;
 	}
 	public String getNombre() {
 		return nombre;
@@ -71,11 +70,11 @@ public class Productos {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDescripion() {
-		return descripion;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDescripion(String descripion) {
-		this.descripion = descripion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	public String getDetalles() {
 		return detalles;
@@ -113,11 +112,11 @@ public class Productos {
 	public void setSugerido(Integer sugerido) {
 		this.sugerido = sugerido;
 	}
-	public Integer getEstatusProducto() {
-		return estatusProducto;
+	public Integer getEstatusproducto() {
+		return estatusproducto;
 	}
-	public void setEstatusProducto(Integer estatusProducto) {
-		this.estatusProducto = estatusProducto;
+	public void setEstatusproducto(Integer estatusproducto) {
+		this.estatusproducto = estatusproducto;
 	}
 	public Integer getComprar() {
 		return comprar;
@@ -161,4 +160,5 @@ public class Productos {
 	public void setFa(Timestamp fa) {
 		this.fa = fa;
 	}
+		
 }

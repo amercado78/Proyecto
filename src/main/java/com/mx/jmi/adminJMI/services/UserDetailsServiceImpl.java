@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.mx.jmi.adminJMI.entity.Usuarios;
 import com.mx.jmi.adminJMI.repository.UsuariosRepository;
 
+/*
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
@@ -33,4 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return user;
 	}
 
+}
+*/
+public class UserDetailsServiceImpl {
+	
 }

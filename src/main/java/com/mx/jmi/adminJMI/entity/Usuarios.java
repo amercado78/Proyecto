@@ -1,28 +1,16 @@
 package com.mx.jmi.adminJMI.entity;
 
-import java.util.List;
+import java.util.*;
+import javax.persistence.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuarios {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long pkusuario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer pkusuario;
 	@Column
 	private String nombres;
 	@Column
@@ -33,12 +21,12 @@ public class Usuarios {
 	private String contrasena;
 	@Column
 	private Integer estatus;	
-	@OneToOne
+	//@OneToOne
 	//@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	//@OneToMany(cascade = CascadeType.ALL)
 	//@ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fkrol", referencedColumnName = "pkRol", updatable = false, nullable = false)
-	private Roles rol;
+    //--@JoinColumn(name = "fkrol", referencedColumnName = "pkRol", updatable = false, nullable = false)
+	/*private Roles rol;
 	
 	
 	public Roles getRol() {
@@ -46,6 +34,21 @@ public class Usuarios {
 	}
 	public void setRol(Roles rol) {
 		this.rol = rol;
+	}*/
+	
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuarios_pkusuario"),
+            inverseJoinColumns = @JoinColumn(name = "roles_pkrol")
+            )
+	private Set<Roles> roles = new HashSet<>();
+    	
+	public Set<Roles> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Roles> roles) {
+		this.roles = roles;
 	}
 	public String getContrasena() {
 		return contrasena;
@@ -53,10 +56,11 @@ public class Usuarios {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-	public Long getPkusuario() {
+	
+	public Integer getPkusuario() {
 		return pkusuario;
 	}
-	public void setPkusuario(Long pkusuario) {
+	public void setPkusuario(Integer pkusuario) {
 		this.pkusuario = pkusuario;
 	}
 	public String getNombres() {

@@ -15,15 +15,15 @@ import javax.persistence.Table;
 public class Roles {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long pkrol;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer pkrol;
 	@Column
 	private String nombre;
 	@Column
 	private String descripcion;
 	@Column
 	private Integer estatus;
-	@OneToOne(mappedBy = "rol", cascade = CascadeType.ALL)
+	/*@OneToOne(mappedBy = "rol", cascade = CascadeType.ALL)
     private Usuarios usuario;
 
 	
@@ -32,11 +32,12 @@ public class Roles {
 	}
 	public void setUsuario(Usuarios usuario) {
 		this.usuario = usuario;
-	}
-	public Long getPkrol() {
+	}*/
+	
+	public Integer getPkrol() {
 		return pkrol;
 	}
-	public void setPkrol(Long pkrol) {
+	public void setPkrol(Integer pkrol) {
 		this.pkrol = pkrol;
 	}
 	public String getNombre() {
