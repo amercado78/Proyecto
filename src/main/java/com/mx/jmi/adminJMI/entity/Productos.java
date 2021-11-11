@@ -25,14 +25,14 @@ public class Productos {
 	private String descripcion;
 	@Column
 	private String detalles;
-	@Column
-	private float largo;
-	@Column
-	private float ancho;
-	@Column
-	private float alto;
-	@Column
-	private float peso;
+	@Column(nullable = true)
+	private Float largo;
+	@Column(nullable = true)
+	private Float ancho;
+	@Column(nullable = true)
+	private Float alto;
+	@Column(nullable = true)
+	private Float peso;
 	@Column
 	private Integer sugerido;
 	@Column
@@ -82,28 +82,28 @@ public class Productos {
 	public void setDetalles(String detalles) {
 		this.detalles = detalles;
 	}
-	public float getLargo() {
+	public Float getLargo() {
 		return largo;
 	}
-	public void setLargo(float largo) {
+	public void setLargo(Float largo) {
 		this.largo = largo;
 	}
-	public float getAncho() {
+	public Float getAncho() {
 		return ancho;
 	}
-	public void setAncho(float ancho) {
+	public void setAncho(Float ancho) {
 		this.ancho = ancho;
 	}
 	public float getAlto() {
 		return alto;
 	}
-	public void setAlto(float alto) {
+	public void setAlto(Float alto) {
 		this.alto = alto;
 	}
-	public float getPeso() {
+	public Float getPeso() {
 		return peso;
 	}
-	public void setPeso(float peso) {
+	public void setPeso(Float peso) {
 		this.peso = peso;
 	}
 	public Integer getSugerido() {

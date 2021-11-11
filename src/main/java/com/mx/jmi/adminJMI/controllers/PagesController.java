@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.mx.jmi.adminJMI.dtos.CategoriaDto;
+import com.mx.jmi.adminJMI.dtos.ProductoDto;
 import com.mx.jmi.adminJMI.dtos.SubcategoriaDto;
 import com.mx.jmi.adminJMI.entity.Categorias;
+import com.mx.jmi.adminJMI.entity.Productos;
 import com.mx.jmi.adminJMI.entity.Subcategorias;
 import com.mx.jmi.adminJMI.interfaces.CategoriasService;
+import com.mx.jmi.adminJMI.interfaces.CustomProductoService;
+import com.mx.jmi.adminJMI.interfaces.ProductoService;
 import com.mx.jmi.adminJMI.interfaces.SubcategoriasService;
 import com.mx.jmi.adminJMI.mappers.CategoriasMapper;
 import com.mx.jmi.adminJMI.mappers.SubcategoriasMapper;
@@ -30,11 +34,17 @@ public class PagesController {
 	Logger logger = LoggerFactory.getLogger(PagesController.class);
 	List<Categorias> listaCategorias; 
 	List<Subcategorias> listaSubcategorias; 
+	List<Productos> listaProductos;
 	
 	@Autowired
 	private CategoriasService categoriasService;
 	@Autowired
 	private SubcategoriasService subcategoriasService;
+	@Autowired
+	private ProductoService productosService;
+	@Autowired
+	CustomProductoService customProductoService;
+
 	
 	@GetMapping({"/","/login"})
 	public String login(Model model, HttpSession session) {		
@@ -57,7 +67,7 @@ public class PagesController {
 		List<CategoriaDto> categorias = CategoriasMapper.mapearListaCategoriasEntityACategoriaDto(listaCategorias);
 		model.addAttribute("seccion", "Categorias");
 		model.addAttribute("categorias", categorias);
-		model.addAttribute("categoria", new Categorias());
+		model.addAttribute("categoria", new Categorias());		
 		try {		
 			return "paginaCategorias";				
 		} catch (Exception e) {	
@@ -88,8 +98,10 @@ public class PagesController {
 	@GetMapping("/products")
 	public String products(Model model, HttpSession session) {		
 		logger.info("/products");
-		model.addAttribute("seccion", "products");
-		
+		model.addAttribute("seccion", "Productos");
+		List<ProductoDto> productoDtoList = customProductoService.getProductos();
+		model.addAttribute("productos", productoDtoList);
+		model.addAttribute("producto", new ProductoDto());
 		try {		
 			return "paginaProductos";				
 		} catch (Exception e) {	

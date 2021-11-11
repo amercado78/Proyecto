@@ -1,5 +1,10 @@
 package com.mx.jmi.adminJMI.interfaces;
 
-public interface ProductoService {
+import java.util.List;
 
+import com.mx.jmi.adminJMI.entity.Productos;
+
+public interface ProductoService {
+	List<Productos> findAll();
+	void save(Productos productos);
 }

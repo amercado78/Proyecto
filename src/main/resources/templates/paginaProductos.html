@@ -59,6 +59,9 @@
 						<div class="col-12">
 							<div class="card">
 								<div class="card-body">
+								<div class="d-inline-block">
+									<h3 class="card-title"><p th:text="'Productos existentes: '+ ${productos.size()} +''"/></h3>
+								</div>
 									<table id="example2" class="table table-bordered table-hover">
 										<thead>
 											<tr>
@@ -72,18 +75,18 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Modelo JMI-102</td>
-												<td>Termopares J, K, T o RTDs Pt100 o Pt1000 en tubo rígido y extensión en diferentes aislantes.</td>
-												<td>$ 2,200.00</td>
-												<td>JMI-100 Termopares de propósito general.</td>												
-												<td>Activa</td>
-												<td>
+											<tr th:each="producto: ${productos}">
+    											<td th:text="${producto.getId()}" />
+    											<td th:text="${producto.getNombre()}" />
+    											<td th:text="${producto.getDescripcion()}" />
+    											<td th:text="${producto.getPrecioMenudeo()}" />
+    											<td th:text="${producto.getCategoria()}" />
+    											<td th:text="${producto.getEstatus()}" />
+    											<td>
 													<i class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1" style="cursor: pointer;"></i>
 													<i class="fas fa-image" data-toggle="modal" data-target="#modal-xl2" style="cursor: pointer;"></i>													
 												</td>
-											</tr>											
+											</tr>												
 										</tbody>
 									</table>
 								</div>								
