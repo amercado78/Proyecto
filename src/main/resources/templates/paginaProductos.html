@@ -84,7 +84,7 @@
     											<td th:text="${producto.getEstatus()}" />
     											<td>
 													<i class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1" style="cursor: pointer;"></i>
-													<i class="fas fa-image" data-toggle="modal" data-target="#modal-xl2" style="cursor: pointer;"></i>													
+													<i id="modal-btn-product-img" class="fas fa-image" th:onclick="'javascript:getProductImages('+${producto.getId()}+')'" data-toggle="modal" data-target="#modal-xl2" style="cursor: pointer;"></i>													
 												</td>
 											</tr>												
 										</tbody>
@@ -301,27 +301,29 @@
 		</div>
 		
 		
-		
+		<!-- Product images -->
 		<div class="modal fade" id="modal-xl2">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Imagenes "Modelo JMI-101"</h4>
+						<h4 id="product-image-title" class="modal-title text-capitalize"></h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
 						<div class="row">							
-							<div class="col-12">
-			                	<img th:src="@{/dist/img/prod-1.jpg}" class="product-image" alt="Product Image">
+							<div id="product-image-header" class="col-12">
+			                	<!-- <img th:src="@{/dist/img/prod-1.jpg}" class="product-image" alt="Product Image"> -->
 			              	</div>
-			              	<div class="col-12 product-image-thumbs">
-				                <div class="product-image-thumb active"><img th:src="@{/dist/img/prod-1.jpg}" alt="Product Image"></div>
+			              	<div id="product-image-wrapper" class="col-12 product-image-thumbs">
+			              	<!--<div id="product-image-wrapper">
+			              		<div class="product-image-thumb active"><img th:src="@{/dist/img/prod-1.jpg}" alt="Product Image"></div>
 				                <div class="product-image-thumb" ><img th:src="@{/dist/img/prod-2.jpg}" alt="Product Image"></div>
 				                <div class="product-image-thumb" ><img th:src="@{/dist/img/prod-3.jpg}" alt="Product Image"></div>
 				                <div class="product-image-thumb" ><img th:src="@{/dist/img/prod-4.jpg}" alt="Product Image"></div>
 				                <div class="product-image-thumb" ><img th:src="@{/dist/img/prod-5.jpg}" alt="Product Image"></div>
+			              	</div>-->
 			              	</div>													
 						</div>
 					</div>
@@ -363,6 +365,7 @@
 	<script th:src="@{/dist/js/adminlte.min.js}"></script>
 	<script th:src="@{/plugins/filterizr/jquery.filterizr.min.js}"></script>
 	<script th:src="@{/dist/js/demo.js}"></script>
+	<script th:src="@{/dist/js/jmicustomizations.js}"></script>
 	<script>
 		$(function() {
 			//Initialize Select2 Elements
@@ -605,14 +608,7 @@
 	</script>
 	
 	<script>
-	  $(document).ready(function() {
-	    $('.product-image-thumb').on('click', function () {
-	      var $image_element = $(this).find('img')
-	      $('.product-image').prop('src', $image_element.attr('src'))
-	      $('.product-image-thumb.active').removeClass('active')
-	      $(this).addClass('active')
-	    })
-	  })
+	 
 	</script>
 
 

@@ -80,6 +80,7 @@ public class ProductoRepositoryImpl implements ProductoRepositoryCustom{
     			s.get("nombre"),
     			c.get("pkcategoria"), 
     			c.get("nombre"));
+    	
     	List<Tuple> tuples = getEntityManager().createQuery( q ).getResultList();
     	productoDtolist = ProductosMapper.mapearListaCategoriasEntityACategoriaDto(preciosProductoslist, tuples);
     	return productoDtolist;
