@@ -25,4 +25,9 @@ public class ProductoServiceImpl implements ProductoService{
 		productosRepository.save(productos);	
 	}
 
+	@Override
+	public Productos findByPkproducto(int id) {
+		return productosRepository.findByPkproducto(id); 
+	}
+
 }

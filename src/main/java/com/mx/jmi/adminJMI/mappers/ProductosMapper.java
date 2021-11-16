@@ -2,11 +2,17 @@ package com.mx.jmi.adminJMI.mappers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.Tuple;
 
+import com.mx.jmi.adminJMI.dtos.ProductoActualizarDto;
 import com.mx.jmi.adminJMI.dtos.ProductoDto;
+import com.mx.jmi.adminJMI.entity.Categorias;
 import com.mx.jmi.adminJMI.entity.PreciosProductos;
+import com.mx.jmi.adminJMI.entity.Productos;
+import com.mx.jmi.adminJMI.entity.Subcategorias;
 import com.mx.jmi.adminJMI.helpers.ProductosHelper;
 
 
@@ -38,7 +44,28 @@ public final class ProductosMapper {
 			productoDto.setCategoria(tuple.get(7) != null ? tuple.get(7).toString(): EMPTY_STRING);
 			productoDtolist.add(productoDto);
         }
-		return productoDtolist;
-		
+		return productoDtolist;	
+	}
+	
+	public static ProductoActualizarDto mapearAproductoActualizarDto(Productos producto,
+			List<Subcategorias> subcategorias, List<Categorias> categorias, PreciosProductos precioProducto) {
+		ProductoActualizarDto productoActualizarDto = new ProductoActualizarDto();
+		productoActualizarDto.setId(producto.getPkproducto());
+		productoActualizarDto.setNombreProducto(producto.getNombre());
+		productoActualizarDto.setDescripcionProducto(producto.getDescripcion());
+		productoActualizarDto.setEstatusId(producto.getEstatus());
+		productoActualizarDto.setPrecio(precioProducto.getPreciomenudeo());
+		productoActualizarDto.setPrecioProductoId(precioProducto.getPkprecioproducto());
+		Map<Integer, String> subcategoriasMap = new TreeMap<Integer, String>();
+		for(Subcategorias subcategoria : subcategorias) {
+			subcategoriasMap.put(subcategoria.getPksubcategoria(), subcategoria.getNombre());
+		}
+		productoActualizarDto.setSubcategorias(subcategoriasMap);
+		Map<Integer, String> categoriasMap = new TreeMap<Integer, String>();
+		for(Categorias categoria : categorias) {
+			categoriasMap.put(categoria.getPkCategoria(), categoria.getNombre());
+		}
+		productoActualizarDto.setCategorias(categoriasMap);
+		return productoActualizarDto;
 	}
 }

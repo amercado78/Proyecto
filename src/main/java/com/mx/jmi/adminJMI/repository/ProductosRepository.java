@@ -13,4 +13,5 @@ import com.mx.jmi.adminJMI.interfaces.ProductoRepositoryCustom;
 public interface ProductosRepository extends JpaRepository<Productos , Integer>{
 	@Override
 	public List<Productos> findAll();
+	public Productos findByPkproducto(int id);
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.mx.jmi.adminJMI.dtos.ActualizarProductoDto;
 import com.mx.jmi.adminJMI.dtos.CategoriaDto;
 import com.mx.jmi.adminJMI.dtos.ProductoDto;
 import com.mx.jmi.adminJMI.dtos.SubcategoriaDto;
@@ -27,6 +29,7 @@ import com.mx.jmi.adminJMI.interfaces.ProductoService;
 import com.mx.jmi.adminJMI.interfaces.SubcategoriasService;
 import com.mx.jmi.adminJMI.mappers.CategoriasMapper;
 import com.mx.jmi.adminJMI.mappers.SubcategoriasMapper;
+import com.mx.jmi.adminJMI.proxies.AmazonS3BucketProxy;
 
 @Controller
 public class PagesController {
@@ -44,6 +47,8 @@ public class PagesController {
 	private ProductoService productosService;
 	@Autowired
 	CustomProductoService customProductoService;
+	@Autowired
+	private Environment env;
 
 	
 	@GetMapping({"/","/login"})
@@ -102,6 +107,7 @@ public class PagesController {
 		List<ProductoDto> productoDtoList = customProductoService.getProductos();
 		model.addAttribute("productos", productoDtoList);
 		model.addAttribute("producto", new ProductoDto());
+		model.addAttribute("actualizarProducto", new ActualizarProductoDto());	
 		try {		
 			return "paginaProductos";				
 		} catch (Exception e) {	

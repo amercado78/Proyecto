@@ -83,7 +83,7 @@
     											<td th:text="${producto.getCategoria()}" />
     											<td th:text="${producto.getEstatus()}" />
     											<td>
-													<i class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1" style="cursor: pointer;"></i>
+													<i class="fas fa-edit" data-toggle="modal" data-target="#modal-xl1" th:onclick="'javascript:getProductPropertiesToUpdate('+${producto.getId()}+')'" style="cursor: pointer;"></i>
 													<i id="modal-btn-product-img" class="fas fa-image" th:onclick="'javascript:getProductImages('+${producto.getId()}+')'" data-toggle="modal" data-target="#modal-xl2" style="cursor: pointer;"></i>													
 												</td>
 											</tr>												
@@ -201,101 +201,67 @@
 			<div class="modal-dialog modal-xl">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Actualizar producto "Modelo JMI-101"</h4>
+						<h4 class="modal-title" id="modal-title-product-update"></h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					
 					<div class="modal-body">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Nombre del producto:</span>
-									</div>
-									<input type="text" class="form-control" value="Modelo JMI-101">
+						<form method="post" th:action="@{/uploadProductImage}" th:object="${actualizarProducto}" enctype="multipart/form-data" id="fileUploadForm" class="container">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Nombre del producto:</span>
 								</div>
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Descripción del producto</span>
-									</div>
-									<textarea class="form-control" rows="3" placeholder="" style="resize: none;">Termopar J, K Y T Con Junta Caliente Y Clavija, Fabricado En Alambre Y Cable Termopar.</textarea>
-								</div>								
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Precio:</span>
-									</div>
-									<input type="text" class="form-control" value="10000">
-								</div>
-								<div class="input-group mb-3">
-									<select class="form-control select2" style="width: 100%;">
-										<option selected="selected">Categoria: Sensores de temperatura</option>
-										<option>Categoria: Monitoreo de temperatura vía PC y Celular</option>
-										<option>Categoria: Instrumentación industrial</option>
-										<option>Categoria: Transmisores de presión</option>
-										<option>Categoria: Resistencias para calentamiento</option>
-										<option>Categoria: Literatura</option>
-									</select>
-								</div>
-								<div class="input-group mb-3">
-									<select class="form-control select2" style="width: 100%;">
-										<option selected="selected">Producto activo</option>
-										<option>Producto inactivo</option>
-									</select>
-								</div>
-								<div class="form-group">									
-									<div class="card-body">
-										<div id="actions" class="row">
-											<div class="col-lg-6">
-												<div class="btn-group w-100">
-													<span class="btn btn-success col fileinput-button">
-														<i class="fas fa-plus"></i> <span>Agregar imagen</span>
-													</span>																										
-												</div>
-											</div>
-											<div class="col-lg-6 d-flex align-items-center">
-												<div class="fileupload-process w-100">
-													<div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-														<div class="progress-bar progress-bar-success" style="width: 0%;" data-dz-uploadprogress></div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="table table-striped files" id="previews">
-											<div id="template" class="row mt-2">
-												<div class="col-auto">
-													<span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
-												</div>
-												<div class="col d-flex align-items-center">
-													<p class="mb-0">
-														<span class="lead" data-dz-name>Termopar 2.png </span> (<span data-dz-size>28.3 KB</span>)
-													</p>
-													<strong class="error text-danger" data-dz-errormessage></strong>
-												</div>
-												<div class="col-4 d-flex align-items-center">
-													<div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-														<div class="progress-bar progress-bar-success" style="width: 0%;" data-dz-uploadprogress></div>
-													</div>
-												</div>
-												<div class="col-auto d-flex align-items-center">
-													<div class="btn-group">														
-														<button data-dz-remove class="btn btn-danger delete">
-															<i class="fas fa-trash"></i> <span>&nbsp;Eliminar</span>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>																
-								</div>
+								<input type="text" class="form-control" id="modal-product-name-product-to-update" value="" >
+								<small id="modal-product-id-product-help" class="w-100 form-text text-muted">Identificador de producto: <span th:field="*{id}" id="modal-product-id-product-to-update"></span></small>
 							</div>
-						</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" >Descripción del producto</span>
+								</div>
+								<textarea class="form-control" rows="3" placeholder="" style="resize: none;" id="modal-product-description-product-to-update"></textarea>
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Precio:</span>
+								</div>
+								<input type="text" class="form-control" value="" id="modal-product-price-product-to-update">
+							</div>
+							<div class="input-group mb-3">
+									<select class="form-control select2" style="width: 100%;" id="modal-product-subcategory-product-to-update">
+									</select>
+							</div>
+							<div class="input-group mb-3">
+									<select class="form-control select2" style="width: 100%;" id="modal-product-category-product-to-update">
+									</select>
+							</div>
+							<div class="input-group mb-3">
+								<select class="form-control select2" style="width: 100%;">
+									<option selected="selected">Producto activo</option>
+									<option>Producto inactivo</option>
+								</select>
+							</div>
+							<!--<input type="text" th:field="*{id}" class="form-control col-4" placeholder="Ingresar nombre de categoría" />-->
+				            <div class="form-group">
+				                <label class="" id="customFile">
+				                    <input type="file" id="image-to-product-update" class="btn" name="file" multiple aria-describedby="fileHelp">
+				                    <br />
+				                   
+				                    <output id="output-image-to-product-update"></output>
+				                    <span class="custom-file-control form-control-file"></span>
+			
+        							
+				                </label>
+				            </div>
+							<div class="modal-footer justify-content-between">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-primary">Actualizar producto</button>
+							</div>
+				        </form>
 					</div>
-
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Actualizar producto</button>
-					</div>
+					
+					
 				</div>				
 			</div>			
 		</div>
