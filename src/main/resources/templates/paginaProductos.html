@@ -208,51 +208,67 @@
 					</div>
 					
 					<div class="modal-body">
-						<form method="post" th:action="@{/uploadProductImage}" th:object="${actualizarProducto}" enctype="multipart/form-data" id="fileUploadForm" class="container">
+						<form method="post" th:action="@{/updateProduct}" th:object="${actualizarProducto}" enctype="multipart/form-data" id="fileUploadForm" class="container">
+							<input  type="hidden" id="modal-product-id-product-to-update" th:value="*{id}" name="id" >
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Nombre del producto:</span>
 								</div>
-								<input type="text" class="form-control" id="modal-product-name-product-to-update" value="" >
-								<small id="modal-product-id-product-help" class="w-100 form-text text-muted">Identificador de producto: <span th:field="*{id}" id="modal-product-id-product-to-update"></span></small>
+								<input type="text" th:field="*{nombreProducto}" class="form-control" id="modal-product-name-product-to-update" value="" >
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text" >Descripción del producto</span>
 								</div>
-								<textarea class="form-control" rows="3" placeholder="" style="resize: none;" id="modal-product-description-product-to-update"></textarea>
+								<textarea class="form-control" th:field="*{descripcionProducto}" rows="3" placeholder="" style="resize: none;" id="modal-product-description-product-to-update"></textarea>
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Precio:</span>
 								</div>
-								<input type="text" class="form-control" value="" id="modal-product-price-product-to-update">
+								<input type="text" th:field="*{precio}" class="form-control" value="" id="modal-product-price-product-to-update">
 							</div>
 							<div class="input-group mb-3">
-									<select class="form-control select2" style="width: 100%;" id="modal-product-subcategory-product-to-update">
+									<select th:field="*{subcategoryId}" class="form-control select2" style="width: 100%;" id="modal-product-subcategory-product-to-update">
 									</select>
 							</div>
 							<div class="input-group mb-3">
-									<select class="form-control select2" style="width: 100%;" id="modal-product-category-product-to-update">
+									<select th:field="*{categoryId}" class="form-control select2" style="width: 100%;" id="modal-product-category-product-to-update">
 									</select>
 							</div>
 							<div class="input-group mb-3">
-								<select class="form-control select2" style="width: 100%;">
-									<option selected="selected">Producto activo</option>
-									<option>Producto inactivo</option>
+								<select th:field="*{estatusId}" class="form-control select2" style="width: 100%;">
+									<option selected="selected" value="1">Producto activo</option>
+									<option value="0">Producto inactivo</option>
 								</select>
 							</div>
 							<!--<input type="text" th:field="*{id}" class="form-control col-4" placeholder="Ingresar nombre de categoría" />-->
+							<div class="dropdown-divider"></div>
+							<div class="form-group">
+								<small class="w-100 form-text text-muted">Sección para modificar las imágenes del producto. Por favor seleccione las imágenes que desea remover en la configuración del producto.</small>
+								<br>
+								<div id="existing-product-images-wrapper" class="input-group mb-3">
+								 </div>
+							
+							</div>
+							<div class="dropdown-divider"></div>
+							<small class="w-100 form-text text-muted">Sección para adicionar nuevas imágenes:</small>
+							<br>
 				            <div class="form-group">
-				                <label class="" id="customFile">
-				                    <input type="file" id="image-to-product-update" class="btn" name="file" multiple aria-describedby="fileHelp">
+				             <div class="custom-file">
+							    <input type="file" id="image-to-product-update" class="custom-file-input" name="files" multiple lang="es">
+							    <label class="custom-file-label" for="customFile">Seleccionar archivos</label>
+  							</div>
+  							<output id="output-image-to-product-update"></output>
+				                <!--  <label class="" id="customFile">
+				                    <input type="file" id="image-to-product-update" class="btn btn-success" name="files[]" multiple aria-describedby="fileHelp">
 				                    <br />
 				                   
 				                    <output id="output-image-to-product-update"></output>
 				                    <span class="custom-file-control form-control-file"></span>
 			
         							
-				                </label>
+				                </label>-->
 				            </div>
 							<div class="modal-footer justify-content-between">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

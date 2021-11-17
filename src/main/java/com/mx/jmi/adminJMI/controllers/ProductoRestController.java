@@ -22,6 +22,7 @@ import com.mx.jmi.adminJMI.interfaces.ProductosImagenesService;
 import com.mx.jmi.adminJMI.interfaces.SubcategoriasService;
 import com.mx.jmi.adminJMI.mappers.ProductosImagenesMapper;
 import com.mx.jmi.adminJMI.mappers.ProductosMapper;
+import com.mx.jmi.adminJMI.repository.ProductosImagenesRepository;
 
 @RestController
 public class ProductoRestController {
@@ -39,6 +40,8 @@ public class ProductoRestController {
 	private SubcategoriasService subcategoriasService;
 	@Autowired 
 	PreciosProductosService preciosProductosService;
+	@Autowired
+	ProductosImagenesRepository productosImagenesRepository;
 	
 	@Autowired
 	ProductosImagenesService productosImagenesService;
@@ -58,7 +61,8 @@ public class ProductoRestController {
 		List<Subcategorias> subcategorias = subcategoriasService.findAll();
 		List<Categorias> categorias = categoriasService.findAll();
 		PreciosProductos precioProducto = preciosProductosService.findByProductos(producto);
-		return ProductosMapper.mapearAproductoActualizarDto(producto, subcategorias, categorias, precioProducto);
+		List<ProductosImagenes> productosImagenesList = productosImagenesRepository.findByProductos(producto);
+		return ProductosMapper.mapearAproductoActualizarDto(producto, subcategorias, categorias, precioProducto, productosImagenesList);
 	} 
 
 }

@@ -11,6 +11,10 @@ public class ProductoActualizarDto {
 	private int estatusId;
 	private Map<Integer, String> subcategorias;
 	private Map<Integer, String> categorias;
+	private Map<Integer, String> productoImagenes;
+	private int subcategoryId;
+	private int categoryId;
+	private int imageIdsToRemove[];
 	
 	public int getId() {
 		return id;
@@ -59,5 +63,29 @@ public class ProductoActualizarDto {
 	}
 	public void setSubcategorias(Map<Integer, String> subcategorias) {
 		this.subcategorias = subcategorias;
+	}
+	public Map<Integer, String> getProductoImagenes() {
+		return productoImagenes;
+	}
+	public void setProductoImagenes(Map<Integer, String> productoImagenes) {
+		this.productoImagenes = productoImagenes;
+	}
+	public int getSubcategoryId() {
+		return subcategoryId;
+	}
+	public void setSubcategoryId(int subcategoryId) {
+		this.subcategoryId = subcategoryId;
+	}
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+	public int[] getImageIdsToRemove() {
+		return imageIdsToRemove;
+	}
+	public void setImageIdsToRemove(int[] imageIdsToRemove) {
+		this.imageIdsToRemove = imageIdsToRemove;
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mx.jmi.adminJMI.dtos.ActualizarProductoDto;
+import com.mx.jmi.adminJMI.dtos.ProductoActualizarDto;
 import com.mx.jmi.adminJMI.interfaces.FileManagerService;
 
 @Controller 
@@ -20,14 +20,14 @@ public class FileManagerController {
 	@Autowired
     private FileManagerService fileManagerService;
 	
-	@PostMapping("uploadProductImage")
-    public ResponseEntity<?> uploadProductImageFile(@ModelAttribute ActualizarProductoDto actualizarProducto, @RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
+	@PostMapping("updateProduct")
+    public ResponseEntity<?> uploadProductImageFile(@ModelAttribute ProductoActualizarDto actualizarProducto, @RequestParam("files") MultipartFile[] files) {
+        if (files.length == 0) {
             return new ResponseEntity<Object>("Seleccionar un archivo", HttpStatus.OK);
         }
 
         try {
-        	fileManagerService.saveProductImageFile(file);
+        	fileManagerService.saveProductImageFile(files[0]);
         } catch (IOException e) {
             e.printStackTrace();
         }

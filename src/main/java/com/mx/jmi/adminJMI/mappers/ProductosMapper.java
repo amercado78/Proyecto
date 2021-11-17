@@ -12,6 +12,7 @@ import com.mx.jmi.adminJMI.dtos.ProductoDto;
 import com.mx.jmi.adminJMI.entity.Categorias;
 import com.mx.jmi.adminJMI.entity.PreciosProductos;
 import com.mx.jmi.adminJMI.entity.Productos;
+import com.mx.jmi.adminJMI.entity.ProductosImagenes;
 import com.mx.jmi.adminJMI.entity.Subcategorias;
 import com.mx.jmi.adminJMI.helpers.ProductosHelper;
 
@@ -48,7 +49,8 @@ public final class ProductosMapper {
 	}
 	
 	public static ProductoActualizarDto mapearAproductoActualizarDto(Productos producto,
-			List<Subcategorias> subcategorias, List<Categorias> categorias, PreciosProductos precioProducto) {
+			List<Subcategorias> subcategorias, List<Categorias> categorias, PreciosProductos precioProducto,
+			List<ProductosImagenes> productosImagenesList) {
 		ProductoActualizarDto productoActualizarDto = new ProductoActualizarDto();
 		productoActualizarDto.setId(producto.getPkproducto());
 		productoActualizarDto.setNombreProducto(producto.getNombre());
@@ -66,6 +68,11 @@ public final class ProductosMapper {
 			categoriasMap.put(categoria.getPkCategoria(), categoria.getNombre());
 		}
 		productoActualizarDto.setCategorias(categoriasMap);
+		Map<Integer, String> productosImagenesMap = new TreeMap<Integer, String>();
+		for(ProductosImagenes productosImagen : productosImagenesList) {
+			productosImagenesMap.put(productosImagen.getPkproductoimagen(), productosImagen.getUrl());
+		}
+		productoActualizarDto.setProductoImagenes(productosImagenesMap);
 		return productoActualizarDto;
 	}
 }

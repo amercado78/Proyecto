@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.mx.jmi.adminJMI.dtos.ActualizarProductoDto;
+
 import com.mx.jmi.adminJMI.dtos.CategoriaDto;
+import com.mx.jmi.adminJMI.dtos.ProductoActualizarDto;
 import com.mx.jmi.adminJMI.dtos.ProductoDto;
 import com.mx.jmi.adminJMI.dtos.SubcategoriaDto;
 import com.mx.jmi.adminJMI.entity.Categorias;
@@ -107,7 +108,7 @@ public class PagesController {
 		List<ProductoDto> productoDtoList = customProductoService.getProductos();
 		model.addAttribute("productos", productoDtoList);
 		model.addAttribute("producto", new ProductoDto());
-		model.addAttribute("actualizarProducto", new ActualizarProductoDto());	
+		model.addAttribute("actualizarProducto", new ProductoActualizarDto());	
 		try {		
 			return "paginaProductos";				
 		} catch (Exception e) {	

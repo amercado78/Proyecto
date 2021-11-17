@@ -100,10 +100,16 @@ function setProductPropertiesToUpdate(productPropertiesToUpdate){
 	document.getElementById("modal-product-name-product-to-update").value = productPropertiesToUpdate.nombreProducto;
 	document.getElementById("modal-product-description-product-to-update").value = productPropertiesToUpdate.descripcionProducto;
 	document.getElementById("modal-product-price-product-to-update").value = productPropertiesToUpdate.precio;
+	document.getElementById("modal-product-id-product-to-update").value = productPropertiesToUpdate.id;
+	setSubcategoriesProductToUpdate(productPropertiesToUpdate);
+	setCategoriesProductToUpdate(productPropertiesToUpdate);
+	setImagesProductToUpdate(productPropertiesToUpdate);
+	
+}
+
+/* Final product update addon*/
+function setSubcategoriesProductToUpdate(productPropertiesToUpdate){
 	var modalProductSubcategoryProductToUpdate=document.getElementById("modal-product-subcategory-product-to-update");
-	document.getElementById("modal-product-id-product-to-update").innerHTML = productPropertiesToUpdate.id;
-	
-	
 	for(var i in productPropertiesToUpdate.subcategorias) {
 	    if (productPropertiesToUpdate.subcategorias.hasOwnProperty(i)) {
 			var subcategoryOption=document.createElement("option");
@@ -113,9 +119,10 @@ function setProductPropertiesToUpdate(productPropertiesToUpdate){
 			modalProductSubcategoryProductToUpdate.appendChild(subcategoryOption);
 	    }
 	}
-	
+}
+
+function setCategoriesProductToUpdate(productPropertiesToUpdate){
 	var modalProductCategoryProductToUpdate=document.getElementById("modal-product-category-product-to-update");
-	
 	for(var i in productPropertiesToUpdate.categorias) {
 	    if (productPropertiesToUpdate.categorias.hasOwnProperty(i)) {
 			var categoryOption=document.createElement("option");
@@ -125,14 +132,38 @@ function setProductPropertiesToUpdate(productPropertiesToUpdate){
 			modalProductCategoryProductToUpdate.appendChild(categoryOption);
 	    }
 	}
-	
-	
-	console.log(productPropertiesToUpdate.subcategorias);
-
-	
 }
 
-/* Final product update addon*/
+function setImagesProductToUpdate(productPropertiesToUpdate){
+	var existingProductImagesWrapper = document.getElementById("existing-product-images-wrapper");
+    removeAllChildNodes(existingProductImagesWrapper);
+	for(var i in productPropertiesToUpdate.productoImagenes) {
+		if (productPropertiesToUpdate.productoImagenes.hasOwnProperty(i)) {
+			var layerWrapperFirst = document.createElement('div');
+		    layerWrapperFirst.className= 'input-group-prepend w-100';
+		    var layerFirstChild = document.createElement('div');
+		    layerFirstChild.className = 'input-group-text';
+		    var radioButton = document.createElement('input');
+		    radioButton.type = 'radio';
+		    radioButton.value = i;
+		    radioButton.setAttribute("onclick", "isAproductImageToRemove(this);");
+		    layerFirstChild.appendChild(radioButton);
+		    layerWrapperFirst.appendChild(layerFirstChild);
+		    var layerSecondChild = document.createElement('div');
+		    layerSecondChild.className = 'card-body';
+		    var productImage = document.createElement('img');
+		    productImage.src =productPropertiesToUpdate.productoImagenes[i];
+		    productImage.width = '150';
+			productImage.height = '150';
+		    productImage.className='img-thumbnail';
+		    layerSecondChild.appendChild(productImage);
+		    layerWrapperFirst.appendChild(layerSecondChild);
+		    existingProductImagesWrapper.appendChild(layerWrapperFirst);
+		}
+	}
+	enableRadioButtonsBehavior();	
+}
+
 function imageProductToUpdateEvent(evt) {
       var files = evt.target.files; 
       var outputImageToProductUpdate = document.getElementById("output-image-to-product-update");
@@ -150,11 +181,13 @@ function imageProductToUpdateEvent(evt) {
             return function(e) {
               // Insertamos la imagen
 	            //document.getElementById("output-image-to-product-update").innerHTML = ['<img width="30%" height="30%" class="rounded mx-auto d-block thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-	            var productHeaderImg = document.createElement('img')
-				productHeaderImg.src = `${e.target.result}`;
+	            var productUploadImg = document.createElement('img')
+				productUploadImg.src = `${e.target.result}`;
+				productUploadImg.width = '200';
+				productUploadImg.height = '200';
 				//productHeaderImg.alt = "Product Image";
-				///productHeaderImg.className= 'product-image';
-				outputImageToProductUpdate.appendChild(productHeaderImg);
+				productUploadImg.className= 'rounded mx-auto d-inline thumb img-thumbnail mx-sm-2 my-sm-4';
+				outputImageToProductUpdate.appendChild(productUploadImg);
             };
         })(f);
  
@@ -162,7 +195,30 @@ function imageProductToUpdateEvent(evt) {
       }
 }
 
-document.getElementById('image-to-product-update').addEventListener('change', imageProductToUpdateEvent, false);    
+document.getElementById('image-to-product-update').addEventListener('change', imageProductToUpdateEvent, false);
+
+function enableRadioButtonsBehavior(){
+	let radios = document.querySelectorAll("[type='radio']");
+   radios.forEach((x)=>{
+     x.dataset.val = x.checked; 
+     x.addEventListener('click',(e)=>{
+       let element = e.target;
+       if(element.dataset.val == 'false'){
+         element.dataset.val = 'true';
+         element.checked = true;
+       }else{
+         element.dataset.val = 'false';
+         element.checked = false;
+       }
+     },true);
+   });
+}
+
+function isAproductImageToRemove(productImageRadioButton){
+	//alert('The value is ' + productImageRadioButton.value + ' and ' + productImageRadioButton.getAttribute('data-val'));
+}
+ 
+    
     
 (function ($) {
 })(jQuery)
